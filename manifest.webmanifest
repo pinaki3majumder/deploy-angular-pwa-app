@@ -1,6 +1,6 @@
 {
-  "name": "ng-pwa",
-  "short_name": "ng-pwa",
+  "name": "deploy-angular-pwa-app",
+  "short_name": "deploy-angular-pwa-app",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
