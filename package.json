@@ -1,5 +1,5 @@
 {
-  "name": "ng-pwa-app",
+  "name": "deploy-angular-pwa-app-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,10 +8,10 @@
     "build:prod": "ng build --configuration production --base-href https://pinaki3majumder.github.io/deploy-angular-pwa-app/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run ng-pwa:serve-ssr",
-    "serve:ssr": "node dist/ng-pwa/server/main.js",
-    "build:ssr": "ng build && ng run ng-pwa:server",
-    "prerender": "ng run ng-pwa:prerender"
+    "dev:ssr": "ng run deploy-angular-pwa-app:serve-ssr",
+    "serve:ssr": "node dist/deploy-angular-pwa-app/server/main.js",
+    "build:ssr": "ng build && ng run deploy-angular-pwa-app:server",
+    "prerender": "ng run deploy-angular-pwa-app:prerender"
   },
   "private": true,
   "dependencies": {

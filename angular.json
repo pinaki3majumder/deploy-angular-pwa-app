@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-pwa": {
+    "deploy-angular-pwa-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-pwa",
+            "outputPath": "dist/deploy-angular-pwa-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ng-pwa:build:production"
+              "buildTarget": "deploy-angular-pwa-app:build:production"
             },
             "development": {
-              "buildTarget": "ng-pwa:build:development"
+              "buildTarget": "deploy-angular-pwa-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ng-pwa:build"
+            "buildTarget": "deploy-angular-pwa-app:build"
           }
         },
         "test": {
@@ -112,7 +112,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/ng-pwa/server",
+            "outputPath": "dist/deploy-angular-pwa-app/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss"
@@ -136,12 +136,12 @@
           "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "ng-pwa:build:development",
-              "serverTarget": "ng-pwa:server:development"
+              "browserTarget": "deploy-angular-pwa-app:build:development",
+              "serverTarget": "deploy-angular-pwa-app:server:development"
             },
             "production": {
-              "browserTarget": "ng-pwa:build:production",
-              "serverTarget": "ng-pwa:server:production"
+              "browserTarget": "deploy-angular-pwa-app:build:production",
+              "serverTarget": "deploy-angular-pwa-app:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -149,18 +149,18 @@
         "prerender": {
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
-            "browserTarget": "ng-pwa:build",
-            "serverTarget": "ng-pwa:server",
+            "browserTarget": "deploy-angular-pwa-app:build",
+            "serverTarget": "deploy-angular-pwa-app:server",
             "routesFile": "routesFile.txt"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-pwa:build:production",
-              "serverTarget": "ng-pwa:server:production"
+              "browserTarget": "deploy-angular-pwa-app:build:production",
+              "serverTarget": "deploy-angular-pwa-app:server:production"
             },
             "development": {
-              "browserTarget": "ng-pwa:build:development",
-              "serverTarget": "ng-pwa:server:development"
+              "browserTarget": "deploy-angular-pwa-app:build:development",
+              "serverTarget": "deploy-angular-pwa-app:server:development"
             }
           },
           "defaultConfiguration": "production"
