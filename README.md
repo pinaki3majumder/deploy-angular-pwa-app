@@ -40,3 +40,29 @@ This guide will help you set up an Angular Progressive Web App. The current Angu
 
 In the right side of the URL bar, you will notice a **download/install icon**.
 Click on it to install the app as a PWA and start enjoying its features!
+
+
+
+---
+
+## Important Notes for Angular Deployment to GitHub Pages
+
+1. ##### Configure Base URL for Production Build
+    - Navigate to **Pages / GitHub Pages** in your repository settings and copy the 'site URL' (e.g., https://username.github.io/repository-name).
+
+    - Update the package.json file with the following build command:
+    ```bash
+    "build:prod": "ng build --configuration production --base-href {site url}/"
+2. ##### Set Deployment Branch
+    - Navigate to **Pages / GitHub Pages** in your repository settings.
+
+    - Set the deployment branch to `gh-pages`, as specified in the `branch` field of your workflow YAML file.
+3. ##### Generate and Configure GitHub Token
+
+    - Follow the guide [here](https://docs.catalyst.zoho.com/en/tutorials/githubbot/java/generate-personal-access-token/) to generate a personal access token.
+
+    - Add the token to your repository secrets as a new secret.
+
+    - Use the token in your workflow YAML file as:
+    ```bash
+    github_token: ${{ secrets.PWA_GITHUB_TOKEN }}
