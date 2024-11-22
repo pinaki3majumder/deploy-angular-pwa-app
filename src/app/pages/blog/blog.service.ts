@@ -3,7 +3,6 @@ import { Observable, map, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BlogSchema } from '@pages/blog/blog-detail/blog-detail.interface'
 import { StrapiData, StrapiBlogResponse } from '@data/schema/stapi-blog-response.schema'
-import { environment } from '@env/environment';
 
 interface Blog {
   blogs: BlogSchema[];
@@ -13,8 +12,7 @@ interface Blog {
   providedIn: 'root'
 })
 export class BlogService {
-  private jsonUrl = `${environment.url}/assets/json/blogs.json`;
-  // private jsonUrl = `http://localhost:4200/assets/json/blogs.json`;
+  private jsonUrl = `/assets/json/blogs.json`;
   public state = signal<Blog>({ blogs: []});
   public blogs: Signal<BlogSchema[]> = computed(() => this.state().blogs);
   private http = inject(HttpClient)

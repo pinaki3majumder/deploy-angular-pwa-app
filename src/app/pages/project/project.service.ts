@@ -2,7 +2,6 @@ import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { ProjectSchema } from '@data/schema/project.schema';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@env/environment';
 import { StrapiProjectResponse, Data } from '@data/schema/strapi-project-response.schema'
 export interface ProjectState {
   projects: ProjectSchema[];
@@ -10,8 +9,7 @@ export interface ProjectState {
 @Injectable({providedIn: 'root'})
 export class ProjectService {
   private http = inject(HttpClient)
-  private jsonUrl = `${environment.url}/assets/json/projects.json`;
-  // private jsonUrl = `http://localhost:4200/assets/json/projects.json`;
+  private jsonUrl = `/assets/json/projects.json`;
 
   public state = signal<ProjectState>({ projects: []});
   public projects: Signal<ProjectSchema[]> = computed(() => this.state().projects);

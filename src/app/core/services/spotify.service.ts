@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy, effect, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '@env/environment';
 import { Observable, Subscription, catchError, interval, map, switchMap, tap } from 'rxjs';
 import { MusicTrack } from '@data/schema/spotify/music-track';
 import { Token } from '@data/schema/spotify/token';
@@ -12,9 +11,8 @@ import { TrackItem } from '@data/schema/spotify/track-item';
   providedIn: 'root'
 })
 export class SpotifyService {
-  spotify = environment.spotify;
-  nowPlayingEndpoint = `${this.spotify.apiURL}me/player/currently-playing`;
-  recentlyPlayedEndpoint = `${this.spotify.apiURL}me/player/recently-played?limit=1`;
+  nowPlayingEndpoint = `me/player/currently-playing`;
+  recentlyPlayedEndpoint = `me/player/recently-played?limit=1`;
   apiTokenEndpoint = 'https://accounts.spotify.com/api/token';
 
   http = inject(HttpClient);
@@ -32,12 +30,12 @@ export class SpotifyService {
   accessToken(): Observable<Token> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${btoa(`${this.spotify.clientId}:${this.spotify.clientSecret}`)}`
+      'Authorization': `Basic ${btoa(`:`)}`
     });
     const params = new HttpParams({
       fromObject: {
         'grant_type': 'refresh_token',
-        'refresh_token': this.spotify.clientRefreshToken
+        'refresh_token': ''
       }
     });
     return this.http.post<Token>(this.apiTokenEndpoint, params, { headers });

@@ -5,7 +5,6 @@ import { RouterOutlet } from '@angular/router';
 import { Footer } from '@layout/footer/footer';
 import { ThemeService } from '@core/services/theme.service';
 import { DOCUMENT, NgClass } from '@angular/common';
-import { environment } from '@env/environment';
 @Component({
   selector: 'app',
   template: `
@@ -33,15 +32,7 @@ export class App implements OnInit {
   }
   ngOnInit(): void {
     this.elementRef.nativeElement.removeAttribute("ng-version");
-    this.elementRef.nativeElement.removeAttribute("ng-server-context");
-
-    if(environment.production){
-      const script = this.renderer.createElement('script');
-      script.defer = true;
-      script.src = 'https://cloud.umami.is/script.js';
-      script.setAttribute('data-website-id', environment.umamiWebsiteId);
-      this.renderer.appendChild(this.document.head, script);
-    }
+    this.elementRef.nativeElement.removeAttribute("ng-server-context");    
   }
 
 }

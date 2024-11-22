@@ -5,7 +5,6 @@ import { Scrobble } from '@data/schema/trakt-tv/scrobble'
 import { History } from '@data/schema/trakt-tv/history'
 import { WatchItem } from '@data/schema/trakt-tv/watch-item'
 import { Image } from '@data/schema/tmdb/image'
-import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +13,8 @@ import { environment } from '@env/environment';
 export class TraktTvService {
   http = inject(HttpClient)
   watch = signal<WatchItem | null>(null);
-  trackTv = environment.traktTv;
-  themoviedb = environment.themoviedb;
-  nowWatchingEndpoint = `${this.trackTv.apiURL}users/${this.trackTv.username}/watching`;
-  recentlyWatchedEndpoint = `${this.trackTv.apiURL}sync/history`;
+  nowWatchingEndpoint = `users/watching`;
+  recentlyWatchedEndpoint = `sync/history`;
   constructor() {
     effect(() => {
       this.getResult();
@@ -42,8 +39,8 @@ export class TraktTvService {
         isWatching: !isArray,
         watchedAt,
         url: isMovie ?
-        `${this.trackTv.url}movies/${res.movie.ids.slug}` :
-        `${this.trackTv.url}shows/${res.show.ids.slug}/seasons/${res.episode.season}/episodes/${res.episode.number}`
+          `movies/${res.movie.ids.slug}` :
+          `shows/${res.show.ids.slug}/seasons/${res.episode.season}/episodes/${res.episode.number}`
       };
     }
     throw new Error('Invalid data format');
@@ -60,12 +57,12 @@ export class TraktTvService {
   getWatching(): Observable<WatchItem> {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', `application/json`)
-    headers = headers.append('trakt-api-version', this.trackTv.version.toString())
-    headers = headers.append('trakt-api-key', this.trackTv.clientId)
+    headers = headers.append('trakt-api-version', '')
+    headers = headers.append('trakt-api-key', '')
     return this.http.get<Scrobble>(this.nowWatchingEndpoint, { headers }).pipe(
       switchMap(res => {
         if (!res) {
-          headers = headers.append('Authorization', `Bearer ${this.trackTv.token}`)
+          headers = headers.append('Authorization', `Bearer`)
           const { startDate, endDate } = this.startEndDateByThisYear();
           let params = new HttpParams()
             .set('start_at', startDate)
@@ -80,13 +77,13 @@ export class TraktTvService {
     this.getWatching().pipe(switchMap(res => {
       const headers = new HttpHeaders({
         'accept': `application/json`,
-        'Authorization': `Bearer ${this.themoviedb.token}`
+        'Authorization': `Bearer`
       });
       let params = new HttpParams()
-        .set('include_image_language', this.themoviedb.language)
-        .set('end_at', this.themoviedb.language);
+        .set('include_image_language', '')
+        .set('end_at', '');
       const type = res.type == 'movie' ? 'movie' : 'tv';
-      const url = `${this.themoviedb.apiURL}${type}/${res.tmdb}/images`;
+      const url = `${type}/${res.tmdb}/images`;
       return this.http.get<Image>(url, { params, headers }).pipe(tap(image => this.watch.set(
         { ...res, image: `https://image.tmdb.org/t/p/original/${image.posters[0].file_path}` }
       )))

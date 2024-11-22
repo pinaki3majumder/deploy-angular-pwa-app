@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import profileData from '@data/profile.data';
-import { environment } from '@env/environment';
 
 type MetaImageStyle = 'summary_large_image' | 'summary';
 
@@ -21,7 +20,7 @@ export class MetaService {
    return this.urlKeywords.some(str => this.router.url.includes(str)) ? 'article' : 'website'
   }
   get rootUrl(): string{
-    return `${environment.url}${this.router.url}`
+    return `${this.router.url}`
   }
 
   setMetaTags(title: string, description: string, keywords?: string | Array<string> | null, image?: string | null , metaImageStyle?: MetaImageStyle): void{
